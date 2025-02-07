@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
-    'coderr_app'
+    'auth_app',
+    'userprofile_app',
+    'baseinfo_app',
+    'offers_app',
+    'orders_app',
+    'review_app'
 ]
 
 MIDDLEWARE = [
