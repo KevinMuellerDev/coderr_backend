@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 
+
 def user_directory_path(instance, filename):
     """
     Returns Filepath where instance provides the user.id and filename
@@ -12,22 +13,22 @@ def user_directory_path(instance, filename):
     return f'user/{instance.user.id}/{filename}'
 
 # Create your models here.
+
+
 class Profile(models.Model):
-    TYPE_CHOICES={
-        'Business':'business',
-        'Customer':'customer'
+    TYPE_CHOICES = {
+        'business': 'business',
+        'customer': 'customer'
     }
-    user=models.OneToOneField(User, on_delete=models.CASCADE)
-    username=models.CharField(max_length=50)
-    first_name=models.CharField(max_length=50)
-    last_name=models.CharField(max_length=50)
-    file=models.FileField(upload_to=user_directory_path)
-    location=models.CharField(max_length=50)
-    tel=models.CharField( max_length=50)
-    description=models.TextField(max_length=50, blank=True)
-    working_hours= models.CharField( max_length=50)
-    type=models.CharField(choices=TYPE_CHOICES, max_length=50)
-    email=models.EmailField(blank=True, null=True, max_length=254)
-    created_at=models.DateTimeField(auto_now_add=True)
-
-
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50, blank=True)
+    last_name = models.CharField(max_length=50, blank=True)
+    file = models.FileField(upload_to=user_directory_path, blank=True)
+    location = models.CharField(max_length=50, blank=True)
+    tel = models.CharField(max_length=50, blank=True)
+    description = models.TextField(max_length=50, blank=True)
+    working_hours = models.CharField(max_length=50, blank=True)
+    type = models.CharField(choices=TYPE_CHOICES, max_length=50)
+    email = models.EmailField(blank=True, null=True, max_length=254)
+    created_at = models.DateTimeField(auto_now_add=True)
