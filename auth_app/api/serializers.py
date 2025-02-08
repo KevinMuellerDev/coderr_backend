@@ -3,14 +3,15 @@ from django.contrib.auth.models import User
 from userprofile_app.models import Profile
 import re
 
+
 class RegistrationSerializer(serializers.ModelSerializer):
     repeated_password = serializers.CharField(write_only=True)
     username = serializers.CharField(max_length=150, validators=[])
-    type=serializers.ChoiceField(Profile.TYPE_CHOICES, write_only=True)
+    type = serializers.ChoiceField(Profile.TYPE_CHOICES, write_only=True)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'repeated_password','type']
+        fields = ['username', 'email', 'password', 'repeated_password', 'type']
         extra_kwargs = {
             'password': {
                 'write_only': True
@@ -39,11 +40,12 @@ class RegistrationSerializer(serializers.ModelSerializer):
         account = User(
             email=self.validated_data['email'],
             username=self.validated_data['username'],)
-        
-        
+
         account.set_password(pw)
         account.save()
 
-        Profile.objects.create(user=account, username=account.username, type=type)
+        profile = Profile.objects.create(
+            user=account, username=account.username, email=account.email, type=type)
 
-        return account
+        return {'user': account,
+                'profile_id': profile.id}
