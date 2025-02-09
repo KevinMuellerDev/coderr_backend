@@ -31,3 +31,26 @@ class RegistrationView(APIView):
             statusCode = status.HTTP_409_CONFLICT
 
         return Response(data, status=statusCode)
+    
+class CustomLoginView(ObtainAuthToken):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        statusCode = None
+        data = {}
+        if serializer.is_valid():
+            user = serializer.validated_data['user']
+            token, created = Token.objects.get_or_create(user=user)
+
+            data = {
+                'token': token.key,
+                'username': user.username,
+                'email': user.email,
+                'user_id':user.id
+            }
+            statusCode = status.HTTP_202_ACCEPTED
+        else:
+            data = serializer.errors
+            statusCode = status.HTTP_400_BAD_REQUEST
+        return Response(data, status=statusCode)
