@@ -1,3 +1,26 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+def user_offer_directory_path(instance, filename):
+    """
+    Returns Filepath where instance provides the user.id and filename
+    the name of provided data
+    - `instance`: instance.user.id
+    - `filename`: name of data
+    """
+    return f'offers/{instance.id}/{filename}'
 
 # Create your models here.
+class Offers(models.Model):    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100,null=False,blank=False)
+    image = models.FileField(upload_to=user_offer_directory_path, null=True, blank=True)
+    description = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    min_price=models.FloatField()
+    min_delivery_time = models.IntegerField()
+
+
+
+
