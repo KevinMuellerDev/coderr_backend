@@ -12,14 +12,14 @@ def user_offer_directory_path(instance, filename):
 
 # Create your models here.
 class Offers(models.Model):    
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     title = models.CharField(max_length=100,null=False,blank=False)
     image = models.FileField(upload_to=user_offer_directory_path, null=True, blank=True)
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    min_price=models.FloatField()
-    min_delivery_time = models.IntegerField()
+    min_price=models.FloatField(null=True)
+    min_delivery_time = models.IntegerField(null=True,blank=True)
 
 class OfferDetails(models.Model):
     TYPES_CHOICE={
