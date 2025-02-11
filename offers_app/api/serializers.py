@@ -38,4 +38,13 @@ class OfferSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=Offers
-        fields = ['id','user','title','image','description','created_at','updated_at','details','min_price','min_delivery_time','user_details']
+        fields = ['id','user','title','description','created_at','updated_at','details','min_price','min_delivery_time','user_details']
+        extra_kwargs={
+            'image':{'required':False}
+        }
+
+        def create(self, validated_data):
+            image = self.context['request'].FILES.get('image')  # Datei aus request.FILES holen
+            if image:
+                validated_data['image'] = image
+            return super().create(validated_data)
