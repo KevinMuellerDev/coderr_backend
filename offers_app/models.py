@@ -21,6 +21,23 @@ class Offers(models.Model):
     min_price=models.FloatField()
     min_delivery_time = models.IntegerField()
 
+class OfferDetails(models.Model):
+    TYPES_CHOICE={
+        'basic':'basic',
+        'standard':'standard',
+        'premium':'premium'
+    }
+    offer=models.ForeignKey(Offers,on_delete=models.CASCADE)
+    title= models.CharField(max_length=100)
+    revisions=models.IntegerField()
+    delivery_time_in_days=models.IntegerField()
+    price=models.FloatField()
+    offer_type=models.CharField(choices=TYPES_CHOICE,max_length=8)
+
+    
+class OfferFeature(models.Model):
+    detail = models.ForeignKey(OfferDetails,on_delete=models.CASCADE)
+    feature = models.CharField(max_length=50)
 
 
 
