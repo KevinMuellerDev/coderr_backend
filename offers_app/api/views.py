@@ -1,13 +1,22 @@
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
-from offers_app.models import OfferDetails,OfferFeature,Offers
-from userprofile_app.api.serializers import ProfileSerializer
-from offers_app.api.serializers import OfferSerializer,OfferFeatureSerializer,OfferDetailsSerializer
-from rest_framework.parsers import MultiPartParser, FormParser
+from offers_app.models import OfferDetails,Offers
+from offers_app.api.serializers import OfferInputSerializer,OfferGetSerializer,OfferDetailsSerializer
+
+
+class OffersPagination(PageNumberPagination):
+    page_size=6
+    max_page_size=6
 
 class OffersViewset(viewsets.ModelViewSet):
     queryset = Offers.objects.all()
-    serializer_class = OfferSerializer
+    pagination_class=OffersPagination
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return OfferGetSerializer
+        else:
+            return OfferInputSerializer
 
 class OfferDetailsViewset(viewsets.ModelViewSet):
     queryset = OfferDetails.objects.all()

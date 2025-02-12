@@ -33,11 +33,14 @@ class OfferDetails(models.Model):
     delivery_time_in_days=models.IntegerField()
     price=models.FloatField()
     offer_type=models.CharField(choices=TYPES_CHOICE,max_length=8)
+    features=models.JSONField(default=dict)
+
+    def __str__(self):
+        return super().__str__()
 
     
-class OfferFeature(models.Model):
-    detail = models.ForeignKey(OfferDetails,on_delete=models.CASCADE)
-    feature = models.CharField(max_length=50)
+
+
 
 
 
