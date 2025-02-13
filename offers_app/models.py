@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Min
 
 def user_offer_directory_path(instance, filename):
     """
@@ -22,13 +23,14 @@ class Offers(models.Model):
     min_price=models.FloatField(null=True)
     min_delivery_time = models.IntegerField(null=True,blank=True)
 
+
 class OfferDetails(models.Model):
     TYPES_CHOICE={
         'basic':'basic',
         'standard':'standard',
         'premium':'premium'
     }
-    offer=models.ForeignKey(Offers,on_delete=models.CASCADE)
+    offer=models.ForeignKey(Offers,on_delete=models.CASCADE,related_name='offerdetails')
     title= models.CharField(max_length=100)
     revisions=models.IntegerField()
     delivery_time_in_days=models.IntegerField()
