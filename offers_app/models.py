@@ -8,13 +8,14 @@ def user_offer_directory_path(instance, filename):
     - `instance`: instance.user.id
     - `filename`: name of data
     """
+    print(instance,filename)
     return f'offers/{instance.id}/{filename}'
 
 # Create your models here.
 class Offers(models.Model):    
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     title = models.CharField(max_length=100,null=False,blank=False)
-    image = models.FileField(upload_to=user_offer_directory_path, null=True, blank=True)
+    image = models.ImageField(upload_to='offerimg/')
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
