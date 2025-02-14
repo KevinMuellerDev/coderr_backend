@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-import datetime
+
 
 
 def user_directory_path(instance, filename):
@@ -25,6 +25,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
     file = models.FileField(upload_to=user_directory_path, blank=True)
+    uploaded_at = models.DateTimeField(blank=True,null=True)
     location = models.CharField(max_length=50, blank=True)
     tel = models.CharField(max_length=50, blank=True)
     description = models.TextField(max_length=50, blank=True)
