@@ -5,6 +5,9 @@ from offers_app.api.serializers import OfferInputSerializer,OfferGetSerializer,O
 from rest_framework.filters import OrderingFilter, SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend, FilterSet, CharFilter
 from offers_app.api.permissions import IsOwnerOrReadOnly
+from rest_framework.response import Response
+from rest_framework import status
+
 class OffersPagination(PageNumberPagination):
     page_size=6
     max_page_size=6
@@ -32,7 +35,17 @@ class OffersViewset(viewsets.ModelViewSet):
             return OfferGetSerializer
         else:
             return OfferInputSerializer
+        
     
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+
+        return Response(
+                {"detail":"Angebot gelöscht!"},
+                status=status.HTTP_202_ACCEPTED
+            )
+
 
 class OfferDetailsViewset(viewsets.ModelViewSet):
     queryset = OfferDetails.objects.all()
