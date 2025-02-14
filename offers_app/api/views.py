@@ -42,7 +42,7 @@ class OffersViewset(viewsets.ModelViewSet):
         self.perform_destroy(instance)
 
         return Response(
-                {"detail":"Angebot gelöscht!"},
+                {},
                 status=status.HTTP_202_ACCEPTED
             )
 
