@@ -1,16 +1,11 @@
 from rest_framework import viewsets
 from userprofile_app.models import Profile
 from userprofile_app.api.serializers import ProfileSerializer
-from .permissions import IsAuthenticated, IsOwner
+from .permissions import IsOwnerOrReadOnly
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes = [IsAuthenticated,IsOwner]
+    permission_classes = [IsOwnerOrReadOnly]
 
-    def get_queryset(self):
-        """
-        Sorgt dafür, dass jeder User nur sein eigenes Profil sehen kann.
-        """
-        return Profile.objects.filter(user=self.request.user)
     
