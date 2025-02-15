@@ -13,11 +13,10 @@ class CustomUserDetailsSerializer(serializers.ModelSerializer):
         profile = getattr(obj, "profile", None)
         print(profile.file)
         if profile and profile.file:
-            # Hier wird die vollständige URL mit Hostname generiert
-            request = self.context.get('request')  # Hole die Anfrage aus dem Kontext
+            request = self.context.get('request')
             if request:
                 return request.build_absolute_uri(profile.file.url)
-            return profile.file.url  # Fallback auf relative URL, falls `request` nicht vorhanden
+            return profile.file.url
         return None
 
 
