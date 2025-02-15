@@ -11,16 +11,6 @@ from django.contrib.auth.models import User
 #     "created_at": "2023-10-30T10:00:00Z",
 #     "updated_at": "2023-10-31T10:00:00Z"
 #   },
-#   {
-#     "id": 2,
-#     "business_user": 5,
-#     "reviewer": 3,
-#     "rating": 5,
-#     "description": "Top Qualität und schnelle Lieferung!",
-#     "created_at": "2023-09-20T10:00:00Z",
-#     "updated_at": "2023-09-20T12:00:00Z"
-#   }
-
 
 class Review(models.Model):
     RATING_CHOICE = {
