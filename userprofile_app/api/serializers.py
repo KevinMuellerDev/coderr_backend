@@ -26,13 +26,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         exclude = ['uploaded_at']
 
     def update(self, instance, validated_data):
-        
-        #TODO: aktualisieren der propertys first und last name beim user
-
         if validated_data.get('file'):
             file = validated_data['file']
-            instance.user.file=file
-            print(instance.user)
             if instance.file != file:
                 instance.uploaded_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         instance.user.first_name = validated_data['first_name']
