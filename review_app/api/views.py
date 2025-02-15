@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from review_app.models import Review
 from review_app.api.serializers import ReviewsSerializer
+from rest_framework.filters import OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend, FilterSet, CharFilter
 
 
@@ -13,5 +14,6 @@ class ReviewFilter(FilterSet):
 class ReviewViewset(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class=ReviewsSerializer
-    ordering_fields = ['']
+    filter_backends=[DjangoFilterBackend,OrderingFilter]
+    ordering_fields = ['created_at','updated_at','rating']
     filterset_class = ReviewFilter
