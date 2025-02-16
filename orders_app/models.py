@@ -1,5 +1,5 @@
 from django.db import models
-from userprofile_app.models import Profile
+from django.contrib.auth.models import User
 
 # Create your models here.
 # Beispiel Modelstruktur Orders get
@@ -18,25 +18,26 @@ from userprofile_app.models import Profile
 #     "updated_at": "2024-09-30T12:00:00Z"
 #   }
 
+
 class Orders(models.Model):
-    TYPES_CHOICE={
-        'basic':'basic',
-        'standard':'standard',
-        'premium':'premium'
+    TYPES_CHOICE = {
+        'basic': 'basic',
+        'standard': 'standard',
+        'premium': 'premium'
     }
-    STATUS_CHOICE={
-        'in_progress':'in_progress',
-        'completed':'completed',
-        'cancelled':'cancelled'
+    STATUS_CHOICE = {
+        'in_progress': 'in_progress',
+        'completed': 'completed',
+        'cancelled': 'cancelled'
     }
-    customer_user = models.ForeignKey(Profile,on_delete=models.CASCADE)
-    business_user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100,blank=False)
-    revisions  =models.IntegerField(null=False)
+    customer_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    business_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100, blank=False)
+    revisions = models.IntegerField(null=False)
     delivery_time_in_days = models.IntegerField(null=False)
     price = models.FloatField(null=False)
-    features = models.JSONField(default=dict,null=False,blank=False)
+    features = models.JSONField(default=dict, null=False, blank=False)
     offer_type = models.CharField(choices=TYPES_CHOICE)
     status = models.CharField(choices=STATUS_CHOICE)
-    created_at=models.DateTimeField(auto_now_add=True)
-    updated_at=models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
