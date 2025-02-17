@@ -1,23 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
-# Beispiel Modelstruktur Orders get
-#   {
-#     "id": 1,
-#     "customer_user": 1,
-#     "business_user": 2,
-#     "title": "Logo Design",
-#     "revisions": 3,
-#     "delivery_time_in_days": 5,
-#     "price": 150.00,
-#     "features": ["Logo Design", "Visitenkarten"],
-#     "offer_type": "basic",
-#     "status": "in_progress",
-#     "created_at": "2024-09-29T10:00:00Z",
-#     "updated_at": "2024-09-30T12:00:00Z"
-#   }
-
 
 class Orders(models.Model):
     TYPES_CHOICE = {
@@ -38,6 +21,6 @@ class Orders(models.Model):
     price = models.FloatField(null=False)
     features = models.JSONField(default=dict, null=False, blank=False)
     offer_type = models.CharField(choices=TYPES_CHOICE, max_length=20)
-    status = models.CharField(choices=STATUS_CHOICE, max_length=20)
+    status = models.CharField(choices=STATUS_CHOICE, max_length=20, default='in_progress')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
