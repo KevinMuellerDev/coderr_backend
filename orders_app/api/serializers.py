@@ -43,9 +43,8 @@ class CreateOrdersSerializer(serializers.ModelSerializer):
         except OfferDetails.DoesNotExist:
             raise serializers.ValidationError({"offer_detail_id": "Invalid OfferDetails ID"})
         
-        validated_data=self.arrange_data(data,offer_detail,offer,customer_user,business_user)
-        print(validated_data)
-        return validated_data
+        arranged_data=self.arrange_data(data,offer_detail,offer,customer_user,business_user)
+        return arranged_data
 
     def create(self, validated_data):
         return Orders.objects.create(**validated_data)
