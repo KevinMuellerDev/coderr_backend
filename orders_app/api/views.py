@@ -40,8 +40,9 @@ class OrderCount(APIView):
     permission_classes=[IsBusinessOwner]
 
     def get(self,request,business_user_id):
-        count= Orders.objects.filter(business_user_id = business_user_id, status="in_progress").count()
-        return Response({"order_count:":count},status.HTTP_200_OK)
+        count = 0
+        count = Orders.objects.filter(business_user_id = business_user_id, status="in_progress").count()
+        return Response({"order_count":count},status.HTTP_200_OK)
     
 class OrderCompletedCount(APIView):
     permission_classes = [IsBusinessOwner]
