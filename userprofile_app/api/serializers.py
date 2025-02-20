@@ -11,7 +11,6 @@ class CustomUserDetailsSerializer(serializers.ModelSerializer):
 
     def get_file(self,obj):
         profile = getattr(obj, "profile", None)
-        print(profile.file)
         if profile and profile.file:
             request = self.context.get('request')
             if request:

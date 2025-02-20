@@ -1,17 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
-#   {
-#     "id": 1,
-#     "business_user": 2, <= Id des Business Users
-#     "reviewer": 3, <= Id des Bewerters(Customer und Business?)
-#     "rating": 4,
-#     "description": "Sehr professioneller Service.",
-#     "created_at": "2023-10-30T10:00:00Z",
-#     "updated_at": "2023-10-31T10:00:00Z"
-#   },
-
 class Review(models.Model):
     RATING_CHOICE = {
         1: 1,

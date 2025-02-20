@@ -9,7 +9,6 @@ def user_offer_directory_path(instance, filename):
     - `instance`: instance.user.id
     - `filename`: name of data
     """
-    print(instance,filename)
     return f'offers/{instance.id}/{filename}'
 
 # Create your models here.

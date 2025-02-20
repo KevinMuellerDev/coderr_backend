@@ -16,7 +16,7 @@ class BaseInfoView(APIView):
         average_rating = 0
         business_profile_count = 0
         offer_count = 0
-        
+
         review_count = Review.objects.all().count()
         if review_count > 0:
             average_rating = (Review.objects.aggregate(Sum('rating'))['rating__sum'])/review_count
@@ -24,8 +24,6 @@ class BaseInfoView(APIView):
             review_count = 0
         business_profile_count = Profile.objects.filter(type='business').count()
         offer_count = Offers.objects.all().count()
-
-        print(review_count)
 
         return Response({
             "review_count":review_count,
