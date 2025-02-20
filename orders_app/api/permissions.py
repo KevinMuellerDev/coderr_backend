@@ -13,3 +13,8 @@ class IsBusinessOwner(permissions.BasePermission):
         if request.user.is_authenticated and request.user.id == business_user_id:
             return True
         raise PermissionDenied({"detail": "You do not have permission to access this resource."})
+
+class IsOwnerOrder(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        print(obj.business_user)
+        return obj.business_user==request.user

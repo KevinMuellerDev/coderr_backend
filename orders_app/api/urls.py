@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 from orders_app.api.views import OrdersViewset,OrderCount,OrderCompletedCount
 
 router = DefaultRouter()
-router.register(r'orders',OrdersViewset)
+router.register(r'orders',OrdersViewset,basename='orders')
 
 urlpatterns = [
     path('',include(router.urls)),

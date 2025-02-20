@@ -4,12 +4,20 @@ from rest_framework.response import Response
 from rest_framework import status
 from orders_app.models import Orders
 from orders_app.api.serializers import OrdersSerializer,CreateOrdersSerializer
-from orders_app.api.permissions import IsBusinessOwner
+from orders_app.api.permissions import IsBusinessOwner,IsOwnerOrder
 
 
 class OrdersViewset(viewsets.ModelViewSet):
-    queryset = Orders.objects.all()
+    queryset=None
     serializer_class=OrdersSerializer
+    permission_classes=[IsOwnerOrder]
+
+
+    def get_queryset(self):
+        """Nur Bestellungen des angemeldeten Business-Users abrufen"""
+        if self.request.user.is_authenticated:
+            return Orders.objects.filter(business_user=self.request.user)
+        return Orders.objects.none() 
 
     def get_serializer_class(self):
         if self.request.method == "GET":

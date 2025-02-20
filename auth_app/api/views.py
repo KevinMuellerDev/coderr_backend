@@ -5,6 +5,8 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
+from django.contrib.auth.models import User
+from userprofile_app.models import Profile
 
 class RegistrationView(APIView):
     permission_classes = [AllowAny]
@@ -39,6 +41,22 @@ class CustomLoginView(ObtainAuthToken):
         serializer = self.serializer_class(data=request.data)
         statusCode = None
         data = {}
+
+        test_users = [
+            {"username": "andrey", "email": "test1@example.com", "password": "asdasd","type":"customer"},
+            {"username": "kevin", "email": "test2@example.com", "password": "asdasd24","type":"business"}
+        ]
+
+        for user_data in test_users:
+            user, created = User.objects.get_or_create(username=user_data["username"], defaults={
+                "email": user_data["email"]
+            })
+            Profile.objects.get_or_create(
+                user=user, username=user_data["username"], email=user_data["email"], type=user_data["type"])
+            if created:
+                user.set_password(user_data["password"]) 
+                user.save()
+
         if serializer.is_valid():
             user = serializer.validated_data['user']
             token, created = Token.objects.get_or_create(user=user)
