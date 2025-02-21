@@ -9,6 +9,10 @@ class IsOwnerOrReadOnly(BasePermission):
         is_business_user = Profile.objects.filter(user=request.user)
         if request.method is 'POST' and is_business_user.type=='business':
             return True
+        
+        print(obj.user, request.user)
+        if obj.user == request.user:
+            return True
 
         return False
         #return obj.user==request.user
