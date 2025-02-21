@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from offers_app.models import OfferDetails,Offers
 from django.contrib.auth.models import User
+from userprofile_app.models import Profile
 from django.db.models import Min
 
 class UserDetailsSerializer(serializers.ModelSerializer):
@@ -67,6 +68,13 @@ class OfferInputSerializer(serializers.ModelSerializer):
 
         validated_data['user'] = user
         details_data = validated_data.pop('offerdetails', [])
+
+        is_business_user = Profile.objects.get(user=user)
+        print(is_business_user)
+
+        if is_business_user.type == 'customer':
+            raise serializers.ValidationError(
+                {'error': 'User ist not a Business User'})
 
         offer = Offers.objects.create(**validated_data)
 

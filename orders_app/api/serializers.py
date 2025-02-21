@@ -13,7 +13,7 @@ class OrdersSerializer(serializers.ModelSerializer):
 class CreateOrdersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orders
-        fields = ['customer_user','business_user','title','revisions','delivery_time_in_days','price','features','offer_type','status','created_at','updated_at']
+        fields = ['id','customer_user','business_user','title','revisions','delivery_time_in_days','price','features','offer_type','status','created_at','updated_at']
 
     def arrange_data(self,data,offer_detail,offer,customer_user,business_user):
         data.pop('offer_detail_id',[])

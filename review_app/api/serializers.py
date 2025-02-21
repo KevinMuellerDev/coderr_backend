@@ -6,6 +6,7 @@ class ReviewsSerializer(serializers.ModelSerializer):
     class Meta:
         model=Review
         fields='__all__'
+        #fields=['id','description','file','location','tel','type','user','working_hours','business_user','reviewer_id']
 
     def create(self, validated_data):
         user = self.context['request'].user
