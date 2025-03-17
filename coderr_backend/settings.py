@@ -29,7 +29,10 @@ SECRET_KEY = 'django-insecure-&thkk=&8d!(fh330(4&)@pqi#j6ul&3gnsk4d=c3-2=p9%wga7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '34.141.77.40',
+    'coderr-backend.kevin-mueller-dev.de'	
+]
 
 
 # Application definition
